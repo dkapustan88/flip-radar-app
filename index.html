@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Radar Config</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            background-color: var(--tg-theme-bg-color, #18222d);
+            color: var(--tg-theme-text-color, #ffffff);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+            color: #0088cc;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #aaaaaa;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            border: 1px solid #2f3e4e;
+            background-color: #212d3b;
+            color: #ffffff;
+            font-size: 16px;
+            outline: none;
+        }
+        input:focus, select:focus {
+            border-color: #0088cc;
+        }
+        .btn-save {
+            width: 100%;
+            padding: 14px;
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn-save:active {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🎯 Flip Radar Settings</h2>
+        
+        <div class="form-group">
+            <label for="min_price">Мин. цена (TON):</label>
+            <input type="number" id="min_price" step="0.1" placeholder="0.0">
+        </div>
+
+        <div class="form-group">
+            <label for="max_price">Макс. цена (TON, 0 = без лимита):</label>
+            <input type="number" id="max_price" step="0.1" placeholder="0.0">
+        </div>
+
+        <div class="form-group">
+            <label for="target_model">Модель (например: Steel Frog, Pepe):</label>
+            <input type="text" id="target_model" placeholder="Любая модель">
+        </div>
+
+        <button class="btn-save" onclick="saveSettings()">Сохранить фильтры</button>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        function saveSettings() {
+            const data = {
+                min_price: parseFloat(document.getElementById('min_price').value) || 0.0,
+                max_price: parseFloat(document.getElementById('max_price').value) || 0.0,
+                target_model: document.getElementById('target_model').value.trim()
+            };
+
+            tg.sendData(JSON.stringify(data));
+            tg.close();
+        }
+    </script>
+</body>
+</html>
