@@ -9,57 +9,25 @@
         body {
             background-color: var(--tg-theme-bg-color, #18222d);
             color: var(--tg-theme-text-color, #ffffff);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0; padding: 20px;
         }
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
+        .container { max-width: 400px; margin: 0 auto; }
+        h2 { text-align: center; color: #0088cc; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 14px; color: #aaaaaa; }
+        input {
+            width: 100%; padding: 12px; box-sizing: border-box;
+            border-radius: 10px; border: 1px solid #2f3e4e;
+            background-color: #212d3b; color: #ffffff; font-size: 16px; outline: none;
         }
-        h2 {
-            text-align: center;
-            color: #0088cc;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #aaaaaa;
-        }
-        input, select {
-            width: 100%;
-            padding: 12px;
-            box-sizing: border-box;
-            border-radius: 10px;
-            border: 1px solid #2f3e4e;
-            background-color: #212d3b;
-            color: #ffffff;
-            font-size: 16px;
-            outline: none;
-        }
-        input:focus, select:focus {
-            border-color: #0088cc;
-        }
+        input:focus { border-color: #0088cc; }
         .btn-save {
-            width: 100%;
-            padding: 14px;
-            background-color: #0088cc;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
+            width: 100%; padding: 14px; background-color: #0088cc;
+            color: white; border: none; border-radius: 10px;
+            font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 20px;
         }
-        .btn-save:active {
-            opacity: 0.8;
-        }
+        .btn-save:active { opacity: 0.8; }
     </style>
 </head>
 <body>
@@ -77,8 +45,13 @@
         </div>
 
         <div class="form-group">
-            <label for="target_model">Модель (например: Steel Frog, Pepe):</label>
+            <label for="target_model">Модель (например: Pepe, Frog):</label>
             <input type="text" id="target_model" placeholder="Любая модель">
+        </div>
+
+        <div class="form-group">
+            <label for="target_background">Фон (например: Black, Gold, Onyx):</label>
+            <input type="text" id="target_background" placeholder="Любой фон">
         </div>
 
         <button class="btn-save" onclick="saveSettings()">Сохранить фильтры</button>
@@ -92,7 +65,8 @@
             const data = {
                 min_price: parseFloat(document.getElementById('min_price').value) || 0.0,
                 max_price: parseFloat(document.getElementById('max_price').value) || 0.0,
-                target_model: document.getElementById('target_model').value.trim()
+                target_model: document.getElementById('target_model').value.trim(),
+                target_background: document.getElementById('target_background').value.trim()
             };
 
             tg.sendData(JSON.stringify(data));
